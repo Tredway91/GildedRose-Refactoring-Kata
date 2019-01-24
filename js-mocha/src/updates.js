@@ -14,7 +14,7 @@ const brieUpdate = function(item) {
   item.quality++;
 
   if (item.sellIn < 0) {
-    item.sellIn = Math.min(item.sellIn + 1, 50);
+    item.quality = Math.min(item.quality + 1, 50);
   }
 };
 
@@ -40,9 +40,20 @@ const backstageUpdate = function(item) {
   if (item.quality === 50) return;
 };
 
+const conjureUpdate = function(item) {
+  item.sellIn--;
+  if (item.quality === 0) return;
+  item.quality -= 2;
+
+  if (item.sellIn < 0) {
+    item.quality = Math.max((item.quality -= 2), 0);
+  }
+};
+
 module.exports = {
   normalUpdate,
   brieUpdate,
   sulfurasUpdate,
-  backstageUpdate
+  backstageUpdate,
+  conjureUpdate
 };

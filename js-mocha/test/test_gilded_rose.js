@@ -201,7 +201,7 @@ describe("Gilded Rose", function() {
     });
   });
 
-  xdescribe("Conjured items", function() {
+  describe("Conjured items", function() {
     it("should decrement quality by 2 each day", function() {
       const gildedRose = new Shop([new Item("Conjured Mana Cake", 3, 6)]);
       const { items } = gildedRose;
