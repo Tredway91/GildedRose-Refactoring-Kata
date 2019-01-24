@@ -4,6 +4,8 @@ class Item {
     this.sellIn = sellIn;
     this.quality = quality;
   }
+
+  update() {}
 }
 
 module.exports = { Item };

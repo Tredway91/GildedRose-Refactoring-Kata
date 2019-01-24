@@ -1,35 +1,29 @@
-const {
-  normalUpdate,
-  brieUpdate,
-  sulfurasUpdate,
-  backstageUpdate,
-  conjureUpdate
-} = require("./updates");
+const { NormalItem } = require("./NormalItem");
+const { AgedItem } = require("./AgedItem");
+const { LegendaryItem } = require("./LegendaryItem");
+const { BackstageItem } = require("./BackstageItem");
+const { ConjuredItem } = require("./ConjuredItem");
+
+const types = {
+  "Aged Brie": AgedItem,
+  "Backstage passes to a TAFKAL80ETC concert": BackstageItem,
+  "Sulfuras, Hand of Ragnaros": LegendaryItem,
+  "Conjured Mana Cake": ConjuredItem
+};
 
 class Shop {
   constructor(items = []) {
     this.items = items;
   }
 
+  addItem(name, sellIn, quality) {
+    const itemType = types[name] || NormalItem;
+    this.items.push(new itemType(name, sellIn, quality));
+  }
+
   updateQuality() {
-    for (var i = 0; i < this.items.length; i++) {
-      switch (this.items[i].name) {
-        case "Aged Brie":
-          brieUpdate(this.items[i]);
-          break;
-        case "Backstage passes to a TAFKAL80ETC concert":
-          backstageUpdate(this.items[i]);
-          break;
-        case "Sulfuras, Hand of Ragnaros":
-          sulfurasUpdate(this.items[i]);
-          break;
-        case "Conjured Mana Cake":
-          conjureUpdate(this.items[i]);
-          break;
-        default:
-          normalUpdate(this.items[i]);
-          break;
-      }
+    for (let item of this.items) {
+      item.update();
     }
 
     return this.items;
